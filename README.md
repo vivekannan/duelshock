@@ -45,7 +45,7 @@ PS                    |  Toggles Standby mode.
 ##TODO
 * CLI to create profiles and to change mapping.
 * Bluetooth capability.
-* Windows port?
+* ~~Windows port?~~
 
 ##Notes.
 1. Media controls can be used to handle both default music player (rythmbox/banshee) as well as video players (totem/vlc). [Read](http://askubuntu.com/a/424847).
