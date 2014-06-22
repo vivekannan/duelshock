@@ -14,7 +14,8 @@ void setNode() {
 	pclose(f);
 }
 
-void sim_keys() {
+void simulateKeys() {
+	
 	if(dPadKey >= DLEFT) {
 		dPadKey -= DLEFT;
 		if(!held.dPadLeft) held.dPadLeft = !system("xdotool keydown Left");
@@ -171,7 +172,7 @@ int latchController() {
 			left = (struct Stick){0};
 			right = (struct Stick){0};
 			
-			sim_keys();
+			simulateKeys();
 			held = (struct Held){0};
 			
 			return close(device);
@@ -196,7 +197,7 @@ int latchController() {
 			right.horizontal = (buf[8] / 10 - 12);
 			right.vertical = (buf[9] / 10 - 12);
 			
-			sim_keys();
+			simulateKeys();
 		}
 	}
 }
