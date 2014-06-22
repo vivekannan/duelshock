@@ -9,6 +9,7 @@ void sethidNode() {
 	
 	f = popen("dmesg | fgrep 'Sony PLAYSTATION(R)3 Controller' | grep -Po '\\Khidraw[0-9]+' | tail -1", "r");
 	fgets(hidraw, 15, f);
+	hidraw[strlen(hidraw) - 1] = '\0';
 	
 	pclose(f);
 }
@@ -20,7 +21,6 @@ int latchController() {
 	horizontalScrollDelay = 2;
 	
 	sprintf(doCommand, "/dev/%s", hidraw);
-	doCommand[strlen(doCommand) - 1] = '\0'; //To remove '\n' from the path.
 	device = open(doCommand, O_RDONLY);
 	
 	while (nr = read(device, buf, sizeof(buf))) {
