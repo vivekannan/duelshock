@@ -1,16 +1,30 @@
 #include <stdio.h>
 #include <fcntl.h>
+#include <string.h>
 #include "duelshock.h"
 
+void sethidNode() {
+	
+	FILE *f;
+	
+	f = popen("dmesg | fgrep 'Sony PLAYSTATION(R)3 Controller' | grep -Po '\\Khidraw[0-9]+' | tail -1", "r");
+	fgets(hidraw, 15, f);
+	
+	pclose(f);
+}
+	
 int latchController() {
 	
 	standby = 1;
 	verticalScrollDelay = 3;
 	horizontalScrollDelay = 2;
 	
-	device = open("/dev/hidraw0", O_RDONLY);
+	sprintf(doCommand, "/dev/%s", hidraw);
+	doCommand[strlen(doCommand) - 1] = '\0'; //To remove '\n' from the path.
+	device = open(doCommand, O_RDONLY);
 	
 	while (nr = read(device, buf, sizeof(buf))) {
+		
 		if (nr < 0) return close(device);
 		
 		if(PS && !held.ps) {
@@ -174,10 +188,12 @@ int latchController() {
 
 int main() {
 	while(1) {
+		
 		if(!system("lsusb | grep -q 'PlayStation 3 Controller'")) {
 			sprintf(doCommand, "notify-send -i %s 'DuelShock' 'PS3 controller detected! Press PS button.'", GAMEPAD_ICON);
 			system(doCommand);
 			
+			sethidNode();
 			latchController();
 			held = (const struct Held){0};
 			
