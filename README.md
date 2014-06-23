@@ -7,6 +7,13 @@ duelshock enables a SIXAXIS controller connnected via USB to be used in linux ba
 * Handy notifications.
 * Mouse pointer sensitivity can be changed by tweaking _POINTER_SENSITIVITY_ in duelshock.h.
 
+##Dependecies.
+xdotool is the only dependency.
+
+    sudo apt-get install xdotool
+
+More info [here](http://www.semicomplete.com/projects/xdotool/).
+
 ##Usage.
 Compile duelshock.c and execute it with root permission (needed to access /dev/hidrawX). 
 
@@ -14,13 +21,6 @@ Compile duelshock.c and execute it with root permission (needed to access /dev/h
     sudo ./duelshock
 
 Plug in the controller and enjoy!
-
-##Dependecies.
-xdotool is the only dependency.
-
-    sudo apt-get install xdotool
-
-More info [here](http://www.semicomplete.com/projects/xdotool/).
 
 ## Default Mapping.
 Button                |  Default Mapping
