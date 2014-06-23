@@ -7,7 +7,7 @@ void setNode() {
 	
 	FILE *f;
 	
-	f = popen("dmesg | fgrep 'Sony PLAYSTATION(R)3 Controller' | grep -Po '\\Khidraw[0-9]+' | tail -1", "r");
+	f = popen("dmesg | fgrep 'Sony PLAYSTATION(R)3 Controller' | grep -Po 'hidraw[0-9]+' | tail -1", "r");
 	fgets(hidraw, 15, f);
 	hidraw[strlen(hidraw) - 1] = '\0'; //To remove '\n' from the path.
 	
@@ -18,110 +18,115 @@ void simulateKeys() {
 	
 	if(dPadKey >= DLEFT) {
 		dPadKey -= DLEFT;
-		if(!held.dPadLeft) held.dPadLeft = !system("xdotool keydown Left");
+		if(!held.dPadLeft) held.dPadLeft = !system(KEYDOWN DLEFTMAP);
 	}
 	
-	else if(held.dPadLeft) held.dPadLeft = system("xdotool keyup Left");
+	else if(held.dPadLeft) held.dPadLeft = system(KEYUP DLEFTMAP);
 	
 	if(dPadKey >= DDOWN) {
 		dPadKey -= DDOWN;
-		if(!held.dPadDown) held.dPadDown = !system("xdotool keydown Down");
+		if(!held.dPadDown) held.dPadDown = !system(KEYDOWN DDOWNMAP);
 	}
 	
-	else if(held.dPadDown) held.dPadDown = system("xdotool keyup Down");
+	else if(held.dPadDown) held.dPadDown = system(KEYUP DDOWNMAP);
 	
 	if(dPadKey >= DRIGHT) {
 		dPadKey -= DRIGHT;
-		if(!held.dPadRight) held.dPadRight = !system("xdotool keydown Right");
+		if(!held.dPadRight) held.dPadRight = !system(KEYDOWN DRIGHTMAP);
 	}
 	
-	else if(held.dPadRight) held.dPadRight = system("xdotool keyup Right");
+	else if(held.dPadRight) held.dPadRight = system(KEYUP DRIGHTMAP);
 	
 	if(dPadKey >= DUP) {
 		dPadKey -= DUP;
-		if(!held.dPadUp) held.dPadUp = !system("xdotool keydown Up");
+		if(!held.dPadUp) held.dPadUp = !system(KEYDOWN DUPMAP);
 	}
 	
-	else if(held.dPadUp) held.dPadUp = system("xdotool keyup Up");
+	else if(held.dPadUp) held.dPadUp = system(KEYUP DUPMAP);
 	
 	if(dPadKey >= START) {
 		dPadKey -= START;
-		if(!held.start) held.start = !system("xdotool keydown Return");
+		if(!held.start) held.start = !system(KEYDOWN STARTMAP);
 	}
 	
-	else if(held.start) held.start = system("xdotool keyup Return");
+	else if(held.start) held.start = system(KEYUP STARTMAP);
 	
-	if(dPadKey >= R3) dPadKey -= R3;   //To prevent R3 from triggering L3 & SELECT actions.
+	if(dPadKey >= R3) {
+		dPadKey -= R3;
+		if(!held.r3) held.r3 = !system(KEYDOWN R3MAP);
+	}
+	
+	else if(held.r3) held.r3 = system(KEYUP R3MAP);
 	
 	if(dPadKey >= L3) {
 		dPadKey -= L3;
-		if(!held.l3) held.l3 = !system("xdotool mousedown 2");
+		if(!held.l3) held.l3 = !system(MOUSEDOWN L3MAP);
 	}
 	
-	else if(held.l3) held.l3 = system("xdotool mouseup 2");
+	else if(held.l3) held.l3 = system(MOUSEUP L3MAP);
 	
 	if(dPadKey >= SELECT) {
 		dPadKey -= SELECT;
-		if(!held.select) held.select = !system("xdotool keydown alt");
+		if(!held.select) held.select = !system(KEYDOWN SELECTMAP);
 	}
 	
-	else if(held.select) held.select = system("xdotool keyup alt");
+	else if(held.select) held.select = system(KEYUP SELECTMAP);
 	
 	if(actionKey >= AS) {
 		actionKey -= AS;
-		if(!held.sAction) held.sAction = !system("xdotool keydown BackSpace");
+		if(!held.sAction) held.sAction = !system(KEYDOWN ASMAP);
 	}
 	
-	else if(held.sAction) held.sAction = system("xdotool keyup BackSpace");
+	else if(held.sAction) held.sAction = system(KEYUP ASMAP);
 	
 	if(actionKey >= AX) {
 		actionKey -= AX;
-		if(!held.xAction) held.xAction = !system("xdotool mousedown 1");
+		if(!held.xAction) held.xAction = !system(MOUSEDOWN AXMAP);
 	}
 	
-	else if(held.xAction) held.xAction = system("xdotool mouseup 1");
+	else if(held.xAction) held.xAction = system(MOUSEUP AXMAP);
 	
 	if(actionKey >= AO) {
 		actionKey -= AO;
-		if(!held.oAction) held.oAction = !system("xdotool mousedown 3");
+		if(!held.oAction) held.oAction = !system(MOUSEDOWN AOMAP);
 	}
 	
-	else if(held.oAction) held.oAction = system("xdotool mouseup 3");
+	else if(held.oAction) held.oAction = system(MOUSEUP AOMAP);
 	
 	if(actionKey == AT) {
 		actionKey -= AT;
-		if(!held.tAction) held.tAction = !system("xdotool keydown XF86AudioPlay");
+		if(!held.tAction) held.tAction = !system(KEYDOWN ATMAP);
 	}
 	
-	else if(held.tAction) held.tAction = system("xdotool keyup XF86AudioPlay");
+	else if(held.tAction) held.tAction = system(KEYUP ATMAP);
 	
 	if (actionKey >= R1) {
 		actionKey -= R1;
-		if(!held.r1) held.r1 = !system("xdotool keydown XF86AudioNext");
+		if(!held.r1) held.r1 = !system(KEYDOWN R1MAP);
 	}
 	
-	else if(held.r1) held.r1 = system("xdotool keyup XF86AudioNext");
+	else if(held.r1) held.r1 = system(KEYUP R1MAP);
 	
 	if(actionKey >= L1) {
 		actionKey -= L1;
-		if(!held.l1) held.l1 = !system("xdotool keydown XF86AudioPrev");
+		if(!held.l1) held.l1 = !system(KEYDOWN L1MAP);
 	}
 	
-	else if(held.l1) held.l1 = system("xdotool keyup XF86AudioPrev");
+	else if(held.l1) held.l1 = system(KEYUP L1MAP);
 	
 	if(actionKey >= R2) {
 		actionKey -= R2;
-		if(!held.r2) held.r2 = !system("xdotool keydown shift");
+		if(!held.r2) held.r2 = !system(KEYDOWN R2MAP);
 	}
 	
-	else if(held.r2) held.r2 = system("xdotool keyup shift");
+	else if(held.r2) held.r2 = system(KEYUP R2MAP);
 	
 	if(actionKey >= L2) {
 		actionKey -= L2;
-		if(!held.l2) held.l2 = !system("xdotool keydown ctrl");
+		if(!held.l2) held.l2 = !system(KEYDOWN L2MAP);
 	}
 	
-	else if(held.l2) held.l2 = system("xdotool keyup ctrl");
+	else if(held.l2) held.l2 = system(KEYUP L2MAP);
 	
 	if((left.horizontal || left.vertical) && (left.horizontal != 1 && left.vertical != 1)) {
 		sprintf(doCommand, "xdotool mousemove_relative -- %f %f", left.horizontal, left.vertical);
