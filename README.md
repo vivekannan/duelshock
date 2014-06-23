@@ -37,7 +37,7 @@ L2                    |  Ctrl.
 L3                    |  Middle-click.
 R1                    |  Media Next. (XF86AudioNext)
 R2                    |  Shift.
-R3                    |  Not used.
+R3                    |  Escape.
 Start                 |  Enter/Return.
 Select                |  Alt.
 PS                    |  Toggles Standby mode.
@@ -52,3 +52,4 @@ PS                    |  Toggles Standby mode.
 2. Scrolling is a little buggy. Expect a fix soon.
 3. Working on a experimental, totally mental way to type. Might implement it later if it is usable.
 4. Icon paths for notify-send can be configured via duelshock.h
+5. Default mapping can now be changed in duelshock.h.
