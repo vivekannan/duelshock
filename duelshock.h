@@ -1,4 +1,4 @@
-//Action maps.
+//Button Values.
 #define AS 128
 #define AX 64
 #define AO 32
@@ -8,7 +8,6 @@
 #define R2 2
 #define L2 1
 
-//D-Pad maps.
 #define DLEFT 128
 #define DDOWN 64
 #define DRIGHT 32
@@ -20,6 +19,34 @@
 
 #define PS buf[4]
 #define POINTER_SENSITIVITY 0.90
+
+#define KEYUP "xdotool keyup "
+#define KEYDOWN "xdotool keydown "
+
+#define MOUSEUP "xdotool mouseup "
+#define MOUSEDOWN "xdotool mousedown "
+
+//Button Mappings. Refer to xdotool's man page to know more about keystroke names.
+#define DLEFTMAP "Left"
+#define DDOWNMAP "Down"
+#define DRIGHTMAP "Right"
+#define DUPMAP "Up"
+
+#define STARTMAP "Return"
+#define SELECTMAP "alt"
+
+#define R1MAP "XF86AudioNext"
+#define R2MAP "shift"
+#define R3MAP "Escape"
+
+#define L1MAP "XF86AudioPrev"
+#define L2MAP "ctrl"
+#define L3MAP "2"
+
+#define ASMAP "BackSpace"
+#define AXMAP "1"
+#define AOMAP "3"
+#define ATMAP "XF86AudioPlay"
 
 //Icon paths for notify-send.
 #define PLAY_ICON "/usr/share/icons/Humanity/actions/48/player_play.svg"
@@ -41,6 +68,7 @@ struct Held {
 	int dPadRight;
 	int dPadUp;
 	int start;
+	int r3;
 	int l3;
 	int select;
 	int ps;
