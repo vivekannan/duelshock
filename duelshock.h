@@ -20,13 +20,15 @@
 #define PS buf[4]
 #define POINTER_SENSITIVITY 0.90
 
-#define KEYUP "xdotool keyup "
-#define KEYDOWN "xdotool keydown "
+#define KEY "xdotool key"
+#define MOUSE "xdotool mouse"
 
-#define MOUSEUP "xdotool mouseup "
-#define MOUSEDOWN "xdotool mousedown "
+#define UP "up "
+#define DOWN "down "
 
-//Button Mappings. Refer to xdotool's man page to know more about keystroke names.
+#define MOUSEORKEY(MAP, DIR) (MAP == "1" || MAP == "2" || MAP == "3") ? MOUSE DIR MAP : KEY DIR MAP
+
+//Button Mappings. Refer xdotool's man page to know more about keystroke names.
 #define DLEFTMAP "Left"
 #define DDOWNMAP "Down"
 #define DRIGHTMAP "Right"
@@ -63,10 +65,10 @@ struct Held {
 	int l1;
 	int r2;
 	int l2;
-	int dPadLeft;
-	int dPadDown;
-	int dPadRight;
-	int dPadUp;
+	int dLeft;
+	int dDown;
+	int dRight;
+	int dUp;
 	int start;
 	int r3;
 	int l3;
@@ -85,6 +87,6 @@ char hidraw[15];
 int device, nr;
 
 int actionKey;
-int dPadKey;
+int dKey;
 int standby;
 int verticalScrollDelay, horizontalScrollDelay;
