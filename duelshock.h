@@ -20,13 +20,11 @@
 #define PS buf[4]
 #define POINTER_SENSITIVITY 0.90
 
-#define KEY "xdotool key"
-#define MOUSE "xdotool mouse"
+#define KEY "xdotool key%s %s"
+#define MOUSE "xdotool mouse%s %s"
 
 #define UP "up "
 #define DOWN "down "
-
-#define MOUSEORKEY(MAP, DIR) (MAP == "1" || MAP == "2" || MAP == "3") ? MOUSE DIR MAP : KEY DIR MAP
 
 //Button Mappings. Refer xdotool's man page to know more about keystroke names.
 #define DLEFTMAP "Left"
@@ -43,11 +41,11 @@
 
 #define L1MAP "XF86AudioPrev"
 #define L2MAP "ctrl"
-#define L3MAP "2"
+#define L3MAP "MClick"		//Middle-Click
 
 #define ASMAP "BackSpace"
-#define AXMAP "1"
-#define AOMAP "3"
+#define AXMAP "LClick"		//Left-Click
+#define AOMAP "RClick"		//Right-Click
 #define ATMAP "XF86AudioPlay"
 
 //Icon paths for notify-send.
