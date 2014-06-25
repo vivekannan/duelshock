@@ -5,6 +5,45 @@
 #include <string.h>
 #include "duelshock.h"
 
+void moveMouse(struct Stick stick) {
+	
+	stick.vertical *= POINTERSENSITIVITY;
+	stick.horizontal *= POINTERSENSITIVITY;
+	
+	if((stick.horizontal || stick.vertical) && (stick.horizontal != 1 && stick.vertical != 1)) {
+		sprintf(doCommand, "xdotool mousemove_relative -- %f %f", stick.horizontal, stick.vertical);
+		system(doCommand);
+	}
+}
+
+void scroll(struct Stick stick) {
+	if(stick.vertical > 2 || stick.vertical < -2) {
+		verticalScrollDelay--;
+		
+		if(!verticalScrollDelay) {
+			sprintf(doCommand, "xdotool click %i", (stick.vertical > 0) ? 5 : 4);
+			system(doCommand);
+			verticalScrollDelay = 3;
+		}
+		
+		return;
+	}
+	
+	else if(verticalScrollDelay != 3) verticalScrollDelay = 3;
+	
+	if(stick.horizontal > 2 || stick.horizontal < -2) {
+		horizontalScrollDelay--;
+		
+		if(!horizontalScrollDelay) {
+			sprintf(doCommand, "xdotool keydown shift click %i keyup shift", (stick.horizontal > 0) ? 5 : 4);
+			system(doCommand);
+			horizontalScrollDelay = 2;
+		}
+	}
+	
+	else if(horizontalScrollDelay != 2) horizontalScrollDelay = 2;
+}
+
 int mouseOrKey(char *map, char *dir) {
 	
 	if(!strcmp(map, "LClick")) sprintf(doCommand, MOUSE, dir, "1");
@@ -143,36 +182,8 @@ void simulateKeys() {
 	
 	else if(held.l2) held.l2 = mouseOrKey(L2MAP, UP);
 	
-	if((left.horizontal || left.vertical) && (left.horizontal != 1 && left.vertical != 1)) {
-		sprintf(doCommand, "xdotool mousemove_relative -- %f %f", left.horizontal, left.vertical);
-		system(doCommand);
-	}
-	
-	if(right.vertical > 2 || right.vertical < -2) {
-		verticalScrollDelay--;
-		
-		if(!verticalScrollDelay) {
-			sprintf(doCommand, "xdotool click %i", (right.vertical > 0) ? 5 : 4);
-			system(doCommand);
-			verticalScrollDelay = 3;
-		}
-		
-		return;
-	}
-	
-	else if(verticalScrollDelay != 3) verticalScrollDelay = 3;
-	
-	if(right.horizontal > 2 || right.horizontal < -2) {
-		horizontalScrollDelay--;
-		
-		if(!horizontalScrollDelay) {
-			sprintf(doCommand, "xdotool keydown shift click %i keyup shift", (right.horizontal > 0) ? 5 : 4);
-			system(doCommand);
-			horizontalScrollDelay = 2;
-		}
-	}
-	
-	else if(horizontalScrollDelay != 2) horizontalScrollDelay = 2;
+	moveMouse((LEFTSTICKMOUSE) ? left : right);
+	scroll((LEFTSTICKMOUSE) ? right : left);
 }
 
 void latchController() {
@@ -213,8 +224,8 @@ void latchController() {
 		if(!standby) {
 			dKey = buf[2];
 			actionKey = buf[3];
-			left.horizontal = (buf[6] / 10 - 12) * POINTER_SENSITIVITY;
-			left.vertical = (buf[7] / 10 - 12) * POINTER_SENSITIVITY;
+			left.horizontal = (buf[6] / 10 - 12);
+			left.vertical = (buf[7] / 10 - 12);
 			right.horizontal = (buf[8] / 10 - 12);
 			right.vertical = (buf[9] / 10 - 12);
 			
