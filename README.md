@@ -5,7 +5,7 @@ duelshock enables a SIXAXIS controller connnected via USB to be used in linux ba
 * Optimised mapping for maximum usablility.
 * Stand-by mode to handle Dualshock's buggy R2/L2 triggers.
 * Handy notifications.
-* Mouse pointer sensitivity can be changed by tweaking _POINTER_SENSITIVITY_ in duelshock.h.
+* Mouse pointer sensitivity can be changed by tweaking POINTERSENSITIVITY in duelshock.h.
 
 ##Dependecies.
 xdotool is the only dependency.
@@ -41,6 +41,13 @@ R3                    |  Escape.
 Start                 |  Enter/Return.
 Select                |  Alt.
 PS                    |  Toggles Standby mode.
+
+##Changing Default Mapping.
+Mapping of all buttons (D-pad, Action keys, \[LR\]\[1-3\]) can be changed via duelshock.h by changing the corresponding symbol's value. For example, to change X Action key\'s map from left-click to enter/return, change AXMAP in duelshock.h to "Return". Map values are similar to xdotool's keystrokes. Read the man page of xdotool to know keystroke values of different keys.
+
+Scrolling and mouse movement can be swapped between the sticks by changing the value of LEFTSTICKMOUSE to 0.
+
+Mouse-click map values are "RClick" for right-click, "LClick" for left-click and "MClick" for middle-click.
 
 ##TODO
 * CLI to create profiles and to change mapping.
