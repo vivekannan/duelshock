@@ -18,7 +18,6 @@
 #define SELECT 1
 
 #define PS buf[4]
-#define POINTER_SENSITIVITY 0.90
 
 #define KEY "xdotool key%s %s"
 #define MOUSE "xdotool mouse%s %s"
@@ -47,6 +46,9 @@
 #define AXMAP "LClick"		//Left-Click
 #define AOMAP "RClick"		//Right-Click
 #define ATMAP "XF86AudioPlay"
+
+#define LEFTSTICKMOUSE 1
+#define POINTERSENSITIVITY 0.90
 
 //Icon paths for notify-send.
 #define PLAY_ICON "/usr/share/icons/Humanity/actions/48/player_play.svg"
