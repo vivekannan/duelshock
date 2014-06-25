@@ -1,132 +1,147 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <string.h>
 #include "duelshock.h"
+
+int mouseOrKey(char *map, char *dir) {
+	
+	if(!strcmp(map, "LClick")) sprintf(doCommand, MOUSE, dir, "1");
+	
+	else if(!strcmp(map, "MClick")) sprintf(doCommand, MOUSE, dir, "2");
+	
+	else if(!strcmp(map, "RClick")) sprintf(doCommand, MOUSE, dir, "3");
+	
+	else sprintf(doCommand, KEY, dir, map);
+	
+	return system(doCommand);
+}
 
 void setNode() {
 	
 	FILE *f;
 	
-	f = popen("dmesg | fgrep 'Sony PLAYSTATION(R)3 Controller' | grep -Po 'hidraw[0-9]+' | tail -1", "r");
+	f = popen("dmesg | tail | fgrep 'Sony PLAYSTATION(R)3 Controller' | grep -Po 'hidraw[0-9]+' | tail -1", "r");
 	fgets(hidraw, 15, f);
-	hidraw[strlen(hidraw) - 1] = '\0'; //To remove '\n' from the path.
-	
 	pclose(f);
+	
+	hidraw[strlen(hidraw) - 1] = '\0'; //To remove '\n' from the path.
 }
 
 void simulateKeys() {
 	
 	if(dKey >= DLEFT) {
 		dKey -= DLEFT;
-		if(!held.dLeft) held.dLeft = !system(MOUSEORKEY(DLEFTMAP, DOWN));
+		if(!held.dLeft) held.dLeft = !mouseOrKey(DLEFTMAP, DOWN);
 	}
 	
-	else if(held.dLeft) held.dLeft = system(MOUSEORKEY(DLEFTMAP, UP));
+	else if(held.dLeft) held.dLeft = mouseOrKey(DLEFTMAP, UP);
 	
 	if(dKey >= DDOWN) {
 		dKey -= DDOWN;
-		if(!held.dDown) held.dDown = !system(MOUSEORKEY(DDOWNMAP, DOWN));
+		if(!held.dDown) held.dDown = !mouseOrKey(DDOWNMAP, DOWN);
 	}
 	
-	else if(held.dDown) held.dDown = system(MOUSEORKEY(DDOWNMAP, UP));
+	else if(held.dDown) held.dDown = mouseOrKey(DDOWNMAP, UP);
 	
 	if(dKey >= DRIGHT) {
 		dKey -= DRIGHT;
-		if(!held.dRight) held.dRight = !system(MOUSEORKEY(DRIGHTMAP, DOWN));
+		if(!held.dRight) held.dRight = !mouseOrKey(DRIGHTMAP, DOWN);
 	}
 	
-	else if(held.dRight) held.dRight = system(MOUSEORKEY(DRIGHTMAP, UP));
+	else if(held.dRight) held.dRight = mouseOrKey(DRIGHTMAP, UP);
 	
 	if(dKey >= DUP) {
 		dKey -= DUP;
-		if(!held.dUp) held.dUp = !system(MOUSEORKEY(DUPMAP, DOWN));
+		if(!held.dUp) held.dUp = !mouseOrKey(DUPMAP, DOWN);
 	}
 	
-	else if(held.dUp) held.dUp = system(MOUSEORKEY(DUPMAP, UP));
+	else if(held.dUp) held.dUp = mouseOrKey(DUPMAP, UP);
 	
 	if(dKey >= START) {
 		dKey -= START;
-		if(!held.start) held.start = !system(MOUSEORKEY(STARTMAP, DOWN));
+		if(!held.start) held.start = !mouseOrKey(STARTMAP, DOWN);
 	}
 	
-	else if(held.start) held.start = system(MOUSEORKEY(STARTMAP, UP));
+	else if(held.start) held.start = mouseOrKey(STARTMAP, UP);
 	
 	if(dKey >= R3) {
 		dKey -= R3;
-		if(!held.r3) held.r3 = !system(MOUSEORKEY(R3MAP, DOWN));
+		if(!held.r3) held.r3 = !mouseOrKey(R3MAP, DOWN);
 	}
 	
-	else if(held.r3) held.r3 = system(MOUSEORKEY(R3MAP, UP));
+	else if(held.r3) held.r3 = mouseOrKey(R3MAP, UP);
 	
 	if(dKey >= L3) {
 		dKey -= L3;
-		if(!held.l3) held.l3 = !system(MOUSEORKEY(L3MAP, DOWN));
+		if(!held.l3) held.l3 = !mouseOrKey(L3MAP, DOWN);
 	}
 	
-	else if(held.l3) held.l3 = system(MOUSEORKEY(L3MAP, UP));
+	else if(held.l3) held.l3 = mouseOrKey(L3MAP, UP);
 	
 	if(dKey >= SELECT) {
 		dKey -= SELECT;
-		if(!held.select) held.select = !system(MOUSEORKEY(SELECTMAP, DOWN));
+		if(!held.select) held.select = !mouseOrKey(SELECTMAP, DOWN);
 	}
 	
-	else if(held.select) held.select = system(MOUSEORKEY(SELECTMAP, UP));
+	else if(held.select) held.select = mouseOrKey(SELECTMAP, UP);
 	
 	if(actionKey >= AS) {
 		actionKey -= AS;
-		if(!held.sAction) held.sAction = !system(MOUSEORKEY(ASMAP, DOWN));
+		if(!held.sAction) held.sAction = !mouseOrKey(ASMAP, DOWN);
 	}
 	
-	else if(held.sAction) held.sAction = system(MOUSEORKEY(ASMAP, UP));
+	else if(held.sAction) held.sAction = mouseOrKey(ASMAP, UP);
 	
 	if(actionKey >= AX) {
 		actionKey -= AX;
-		if(!held.xAction) held.xAction = !system(MOUSEORKEY(AXMAP, DOWN));
+		if(!held.xAction) held.xAction = !mouseOrKey(AXMAP, DOWN);
 	}
 	
-	else if(held.xAction) held.xAction = system(MOUSEORKEY(AXMAP, UP));
+	else if(held.xAction) held.xAction = mouseOrKey(AXMAP, UP);
 	
 	if(actionKey >= AO) {
 		actionKey -= AO;
-		if(!held.oAction) held.oAction = !system(MOUSEORKEY(AOMAP, DOWN));
+		if(!held.oAction) held.oAction = !mouseOrKey(AOMAP, DOWN);
 	}
 	
-	else if(held.oAction) held.oAction = system(MOUSEORKEY(AOMAP, UP));
+	else if(held.oAction) held.oAction = mouseOrKey(AOMAP, UP);
 	
 	if(actionKey == AT) {
 		actionKey -= AT;
-		if(!held.tAction) held.tAction = !system(MOUSEORKEY(ATMAP, DOWN));
+		if(!held.tAction) held.tAction = !mouseOrKey(ATMAP, DOWN);
 	}
 	
-	else if(held.tAction) held.tAction = system(MOUSEORKEY(ATMAP, UP));
+	else if(held.tAction) held.tAction = mouseOrKey(ATMAP, UP);
 	
 	if (actionKey >= R1) {
 		actionKey -= R1;
-		if(!held.r1) held.r1 = !system(MOUSEORKEY(R1MAP, DOWN));
+		if(!held.r1) held.r1 = !mouseOrKey(R1MAP, DOWN);
 	}
 	
-	else if(held.r1) held.r1 = system(MOUSEORKEY(R1MAP, UP));
+	else if(held.r1) held.r1 = mouseOrKey(R1MAP, UP);
 	
 	if(actionKey >= L1) {
 		actionKey -= L1;
-		if(!held.l1) held.l1 = !system(MOUSEORKEY(L1MAP, DOWN));
+		if(!held.l1) held.l1 = !mouseOrKey(L1MAP, DOWN);
 	}
 	
-	else if(held.l1) held.l1 = system(MOUSEORKEY(L1MAP, UP));
+	else if(held.l1) held.l1 = mouseOrKey(L1MAP, UP);
 	
 	if(actionKey >= R2) {
 		actionKey -= R2;
-		if(!held.r2) held.r2 = !system(MOUSEORKEY(R2MAP, DOWN));
+		if(!held.r2) held.r2 = !mouseOrKey(R2MAP, DOWN);
 	}
 	
-	else if(held.r2) held.r2 = system(MOUSEORKEY(R2MAP, UP));
+	else if(held.r2) held.r2 = mouseOrKey(R2MAP, UP);
 	
 	if(actionKey >= L2) {
 		actionKey -= L2;
-		if(!held.l2) held.l2 = !system(MOUSEORKEY(L2MAP, DOWN));
+		if(!held.l2) held.l2 = !mouseOrKey(L2MAP, DOWN);
 	}
 	
-	else if(held.l2) held.l2 = system(MOUSEORKEY(L2MAP, UP));
+	else if(held.l2) held.l2 = mouseOrKey(L2MAP, UP);
 	
 	if((left.horizontal || left.vertical) && (left.horizontal != 1 && left.vertical != 1)) {
 		sprintf(doCommand, "xdotool mousemove_relative -- %f %f", left.horizontal, left.vertical);
@@ -141,7 +156,7 @@ void simulateKeys() {
 			system(doCommand);
 			verticalScrollDelay = 3;
 		}
-	
+		
 		return;
 	}
 	
@@ -169,7 +184,7 @@ void latchController() {
 	sprintf(doCommand, "/dev/%s", hidraw);
 	device = open(doCommand, O_RDONLY);
 	
-	while (nr = read(device, buf, sizeof(buf))) {
+	while ((nr = read(device, buf, sizeof(buf)))) {
 		
 		if (nr < 0) {
 			dKey = 0;
@@ -190,7 +205,6 @@ void latchController() {
 			held.ps = 1;
 			
 			sprintf(doCommand, "notify-send -i %s 'DuelShock' 'Controller %s Stand-by mode.'", (standby) ? PAUSE_ICON : PLAY_ICON, (standby) ? "in" : "out of");
-			
 			system(doCommand);
 		}
 		
@@ -213,10 +227,11 @@ int main() {
 	while(1) {
 		
 		if(!system("lsusb | grep -q 'PlayStation 3 Controller'")) {
+			setNode();
+			
 			sprintf(doCommand, "notify-send -i %s 'DuelShock' 'PS3 controller detected! Press PS button.'", GAMEPAD_ICON);
 			system(doCommand);
 			
-			setNode();
 			latchController();
 			
 			sprintf(doCommand, "notify-send -i %s 'DuelShock' 'Lost connection to PS3 controller. Please reconnect the controller.'", ERROR_ICON);
