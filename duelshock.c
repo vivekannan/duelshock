@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <math.h>
 #include <string.h>
 #include "duelshock.h"
 
 void moveMouse(struct Stick stick) {
 	
-	if((stick.horizontal || stick.vertical) && (stick.horizontal != 1 && stick.vertical != 1)) {
+	if(fabsf(stick.horizontal) > 1 || fabsf(stick.vertical) > 1) {
 		sprintf(doCommand, "xdotool mousemove_relative -- %f %f", stick.horizontal * POINTERSENSITIVITY, stick.vertical * POINTERSENSITIVITY);
 		system(doCommand);
 	}
