@@ -7,11 +7,8 @@
 
 void moveMouse(struct Stick stick) {
 	
-	stick.vertical *= POINTERSENSITIVITY;
-	stick.horizontal *= POINTERSENSITIVITY;
-	
 	if((stick.horizontal || stick.vertical) && (stick.horizontal != 1 && stick.vertical != 1)) {
-		sprintf(doCommand, "xdotool mousemove_relative -- %f %f", stick.horizontal, stick.vertical);
+		sprintf(doCommand, "xdotool mousemove_relative -- %f %f", stick.horizontal * POINTERSENSITIVITY, stick.vertical * POINTERSENSITIVITY);
 		system(doCommand);
 	}
 }
