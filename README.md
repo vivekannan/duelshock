@@ -43,7 +43,7 @@ Select                |  Alt.
 PS                    |  Toggles Standby mode.
 
 ##Changing Default Mapping.
-Mapping of all buttons (D-pad, Action keys, \[LR\]\[1-3\]) can be changed via duelshock.h by changing the corresponding symbol's value. For example, to change X Action key\'s map from left-click to enter/return, change AXMAP in duelshock.h to "Return". Map values are similar to xdotool's keystrokes. Read the man page of xdotool to know keystroke values of different keys.
+Mapping of all buttons (D-pad, Action keys, \[LR\]\[1-3\]) can be changed via duelshock.h by changing the corresponding symbol's value. For example, to change X Action key's map from left-click to enter/return, change AXMAP in duelshock.h to "Return". Map values are similar to xdotool's keystrokes. Read the man page of xdotool to know keystroke values of different keys.
 
 Scrolling and mouse movement can be swapped between the sticks by changing the value of LEFTSTICKMOUSE to 0.
 
