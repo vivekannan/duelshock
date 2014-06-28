@@ -83,7 +83,7 @@ struct Stick {
 
 unsigned char buf[128];
 char doCommand[200];
-char hidraw[15];
+char hidraw[10];
 int device, nr;
 
 int actionKey;

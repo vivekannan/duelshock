@@ -15,7 +15,8 @@ void moveMouse(struct Stick stick) {
 }
 
 void scroll(struct Stick stick) {
-	if(stick.vertical > 2 || stick.vertical < -2) {
+	
+	if(fabsf(stick.vertical) > 2) {
 		verticalScrollDelay--;
 		
 		if(!verticalScrollDelay) {
@@ -29,7 +30,7 @@ void scroll(struct Stick stick) {
 	
 	else if(verticalScrollDelay != 3) verticalScrollDelay = 3;
 	
-	if(stick.horizontal > 2 || stick.horizontal < -2) {
+	if(fabsf(stick.horizontal) > 2) {
 		horizontalScrollDelay--;
 		
 		if(!horizontalScrollDelay) {
@@ -59,8 +60,8 @@ void setNode() {
 	
 	FILE *f;
 	
-	f = popen("dmesg | tail | fgrep 'Sony PLAYSTATION(R)3 Controller' | grep -Po 'hidraw[0-9]+' | tail -1", "r");
-	fgets(hidraw, 15, f);
+	f = popen("dmesg | tail | fgrep 'Sony PLAYSTATION(R)3 Controller' | tail -1 | egrep -o hidraw[0-9]+", "r");
+	fgets(hidraw, 10, f);
 	pclose(f);
 	
 	hidraw[strlen(hidraw) - 1] = '\0'; //To remove '\n' from the path.
