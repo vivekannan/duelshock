@@ -1,3 +1,6 @@
+#ifndef DUELSHOCK_H
+#define DUELSHOCK_H
+
 //Button Values.
 #define AS 128
 #define AX 64
@@ -90,3 +93,5 @@ int actionKey;
 int dKey;
 int standby;
 int verticalScrollDelay, horizontalScrollDelay;
+
+#endif
